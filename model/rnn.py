@@ -72,7 +72,7 @@ class RNN(torch.nn.Module):
         :return:
         """
         if seq_lengths is not None:
-            seq_lengths = seq_lengths.int()
+            seq_lengths = seq_lengths.cpu()
             sorted_seq_lengths, indices = torch.sort(seq_lengths,
                                                      descending=True)
             if self.batch_first:
