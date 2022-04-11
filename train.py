@@ -115,7 +115,7 @@ class ClassificationTrainer(object):
         standard_labels = []
         num_batch = data_loader.__len__()
         total_loss = 0.
-        for batch in tqdm(data_loader, ncols=100, desc=f'{stage} epoch:{epoch+1}'):
+        for batch in tqdm(data_loader, ncols=100, desc=f'{stage} epoch:{epoch}'):
             # hierarchical classification using hierarchy penalty loss
             if self.conf.task_info.hierarchical:
                 logits = model(batch)
