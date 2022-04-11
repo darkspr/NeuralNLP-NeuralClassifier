@@ -42,7 +42,7 @@ from model.classification.hmcn import HMCN
 from model.loss import ClassificationLoss
 from model.model_util import get_optimizer, get_hierar_relations
 from util import ModeType
-
+from tqdm import tqdm
 
 ClassificationDataset, ClassificationCollator, FastTextCollator, ClassificationLoss, cEvaluator
 FastText, TextCNN, TextRNN, TextRCNN, DRNN, TextVDCNN, Transformer, DPCNN, AttentiveConvNet, RegionEmbedding
@@ -115,7 +115,7 @@ class ClassificationTrainer(object):
         standard_labels = []
         num_batch = data_loader.__len__()
         total_loss = 0.
-        for batch in data_loader:
+        for batch in tqdm(data_loader, ncols=100, desc=f'{stage} epoch:{epoch+1}'):
             # hierarchical classification using hierarchy penalty loss
             if self.conf.task_info.hierarchical:
                 logits = model(batch)
