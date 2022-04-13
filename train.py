@@ -16,6 +16,7 @@ import os
 import shutil
 import sys
 import time
+from glob import glob
 
 import torch
 from torch.utils.data import DataLoader
@@ -195,8 +196,10 @@ def load_checkpoint(file_name, conf, model, optimizer):
 
 
 def save_checkpoint(state, file_prefix):
-    file_name = file_prefix + "_" + str(state["epoch"])
+    file_name = file_prefix + "_" + str(state["epoch"]).zfill(3)
     torch.save(state, file_name)
+    for path in sorted(glob(f'{file_prefix}_*'))[:-3]:
+        os.remove(path)
 
 
 def train(conf):
