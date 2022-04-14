@@ -251,12 +251,11 @@ def train(conf):
         logger.info("Epoch %d cost time: %d second" % (epoch, time_used))
 
     # best model on validateion set
-    best_epoch_file_name = model_file_prefix + "_" + str(best_epoch)
+    best_epoch_file_name = model_file_prefix + "_" + str(best_epoch).zfill(3)
     best_file_name = model_file_prefix + "_best"
     shutil.copyfile(best_epoch_file_name, best_file_name)
 
-    load_checkpoint(model_file_prefix + "_" + str(best_epoch), conf, model,
-                    optimizer)
+    load_checkpoint(model_file_prefix + "_" + str(best_epoch).zfill(3), conf, model, optimizer)
     trainer.eval(test_data_loader, model, optimizer, "Best test", best_epoch)
 
 
