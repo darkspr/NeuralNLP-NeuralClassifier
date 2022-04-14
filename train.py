@@ -233,10 +233,10 @@ def train(conf):
                        conf.train.start_epoch + conf.train.num_epochs):
         start_time = time.time()
         trainer.train(train_data_loader, model, optimizer, "Train", epoch)
-        trainer.eval(train_data_loader, model, optimizer, "Train", epoch)
+        #trainer.eval(train_data_loader, model, optimizer, "Train", epoch)
         performance = trainer.eval(
             validate_data_loader, model, optimizer, "Validate", epoch)
-        trainer.eval(test_data_loader, model, optimizer, "test", epoch)
+        #trainer.eval(test_data_loader, model, optimizer, "test", epoch)
         if performance > best_performance:  # record the best model
             best_epoch = epoch
             best_performance = performance
