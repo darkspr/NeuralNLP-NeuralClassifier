@@ -195,11 +195,15 @@ def load_checkpoint(file_name, conf, model, optimizer):
     return best_performance
 
 
-def save_checkpoint(state, file_prefix):
+def save_checkpoint(state, file_prefix, best_epoch):
     file_name = file_prefix + "_" + str(state["epoch"]).zfill(3)
+    best_file = file_prefix + "_" + str(best_epoch).zfill(3)
     torch.save(state, file_name)
     for path in sorted(glob(f'{file_prefix}_*'))[:-3]:
-        os.remove(path)
+        if path != best_file:
+            os.remove(path)
+       
+        
 
 
 def train(conf):
@@ -242,7 +246,7 @@ def train(conf):
             'state_dict': model.state_dict(),
             'best_performance': best_performance,
             'optimizer': optimizer.state_dict(),
-        }, model_file_prefix)
+        }, model_file_prefix, best_epoch)
         time_used = time.time() - start_time
         logger.info("Epoch %d cost time: %d second" % (epoch, time_used))
 
